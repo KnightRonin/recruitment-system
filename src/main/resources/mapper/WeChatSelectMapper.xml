@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yisen.wechat.mapper.WeChatSelectMapper">
+    <select id="matchPos" resultType="Map">
+        SELECT
+        positionId,positionName,companyShortName,companyLogo,city,workYear,education,jobNature,salary,industryField FROM
+        boot
+        WHERE jobNature like concat('%',#{jobNature},'%')
+        <if test="citys.size&gt;0 and citys!=null">
+            and
+            <foreach collection="citys" open="(" close=")" separator=" or " item="item">
+                city=#{item}
+            </foreach>
+        </if>
+        <if test="positions.size&gt;0 and positions!=null">
+            and
+            <foreach collection="positions" open="(" close=")" separator=" or " item="item">
+                (secondType=#{item.secondType} and thirdType=#{item.thirdType})
+            </foreach>
+        </if>
+        <if test="labels.size&gt;0 and labels!=null">
+            and
+            <foreach collection="labels" open="(" close=")" separator=" or " item="item">
+                positionLables LIKE concat("%'",#{item},"'%")
+            </foreach>
+        </if>
+        <if test="extraIds.size&gt;0 and extraIds!=null">
+            and
+            <foreach collection="extraIds" open="(" close=")" separator=" and " item="item">
+                positionId!=#{item}
+            </foreach>
+        </if>
+        and (!((leftSalary&gt;#{rightSalary} and #{rightSalary}!=0)
+        or (rightSalary&lt;#{leftSalary} and rightSalary!=0)
+        or (leftSalary&gt;#{rightSalary} and #{rightSalary}!=0)) or (rightSalary=0 and #{rightSalary}=0))
+        limit 0,5
+    </select>
+</mapper>

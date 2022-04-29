@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yisen.hbaseboot.mapper.PostMapper">
+    <insert id="addSinglePosition">
+        INSERT INTO `hbase`.`boot`
+        (`positionId`, `positionName`, `companyId`, `salary`, `city`, `city_province`, `district`, `workYear`, `education`, `jobNature`, `positionLables`, `companyLabelList`, `skillLables`, `companyFullName`, `companyShortName`, `famousCompany`, `industryField`, `financeStage`, `companySize`, `companyLogo`, `longitude`, `latitude`, `firstType`, `secondType`, `thirdType`, `createTime`, `leftSalary`, `rightSalary`, `positionDesc`) VALUES
+        (#{positionId}, #{positionName}, #{companyId}, #{salary}, #{city}, #{city_province}, #{district}, #{workYear}, #{education}, #{jobNature}, #{positionLables}, #{companyLabelList}, #{skillLables}, #{companyFullName}, #{companyShortName}, #{famousCompany}, #{industryField}, #{financeStage}, #{companySize}, #{companyLogo}, #{longitude}, #{latitude}, #{firstType}, #{secondType}, #{thirdType}, #{createTime}, #{leftSalary}, #{rightSalary}, #{positionDesc});
+    </insert>
+</mapper>
+
+

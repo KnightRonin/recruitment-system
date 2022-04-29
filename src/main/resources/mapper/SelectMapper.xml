@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yisen.hbaseboot.mapper.SelectMapper">
+    <select id="getPosDetail" resultType="Position">
+        select positionId,positionName,companyShortName,companyLogo,city,district,
+        workYear,education,salary,famousCompany,jobNature,longitude,latitude,companyLabelList,
+        financeStage,industryField,companySize,positionLables,secondType,thirdType,positionDesc from boot where positionId=#{pid}
+    </select>
+    <select id="getPosList" resultType="Position">
+        select positionId,positionName,companyShortName,companyLogo,city,workYear,
+        education,famousCompany,salary from boot ORDER BY createTime DESC
+    </select>
+    <select id="searchPos" resultType="java.util.Map">
+        select positionId,positionName,companyShortName,companyLogo,city,workYear,
+        education,famousCompany,salary from boot
+        WHERE (positionName LIKE concat('%',#{key},'%') OR companyShortName LIKE concat('%',#{key},'%') OR secondType
+        LIKE concat('%',#{key},'%') OR thirdType LIKE concat('%',#{key},'%'))
+        <if test="location != null and location!=''">
+            and city=#{location}
+        </if>
+        <if test="leftSalary != null and rightSalary != null">
+            and (!((leftSalary&gt;#{rightSalary} and #{rightSalary}!=0)
+            or (rightSalary&lt;#{leftSalary} and rightSalary!=0)
+            or (leftSalary&gt;#{rightSalary} and #{rightSalary}!=0)) or (rightSalary=0 and #{rightSalary}=0))
+        </if>
+        <foreach collection="map" item="value" index="key">
+            <foreach collection="value" item="str" open="and (" separator=" or " close=")">
+                ${key}=#{str}
+            </foreach>
+        </foreach>
+        ORDER BY createTime DESC
+    </select>
+</mapper>

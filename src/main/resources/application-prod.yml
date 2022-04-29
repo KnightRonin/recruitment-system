@@ -1,0 +1,79 @@
+HBase:
+  nodes: 175.178.196.83
+  maxsize: 500000
+#server:
+#  servlet:
+server:
+  port: 443
+  ssl:
+    key-store: classpath:coderush2022.pfx
+    key-store-password: AUbV4aG8
+    keyStoreType: PKCS12
+
+spring:
+  datasource:
+    name: mysql_test
+    type: com.alibaba.druid.pool.DruidDataSource
+    #druid相关配置
+    druid:
+      #监控统计拦截的filters
+      filters: stat
+      driverClassName: com.mysql.jdbc.Driver
+      #基本属性
+      url: jdbc:mysql://localhost:3306/hbase?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=UTC&useSSL=false
+      username: root
+      password: root
+      #配置初始化大小/最小/最大
+      initial-size: 1
+      min-idle: 1
+      max-active: 20
+      #获取连接等待超时时间
+      max-wait: 60000
+      #间隔多久进行一次检测，检测需要关闭的空闲连接
+      time-between-eviction-runs-millis: 60000
+      #一个连接在池中最小生存的时间
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 'x'
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      #打开PSCache，并指定每个连接上PSCache的大小。oracle设为true，mysql设为false。分库分表较多推荐设置为false
+      pool-prepared-statements: false
+      max-pool-prepared-statement-per-connection-size: 20
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.yisen.hbaseboot.entity
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+#pagehelper
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+  returnPageInfo: check
+
+community:
+  communities:
+    - name: 掘金
+      title: 掘金- juejin.im - 一个帮助开发者成长的社区
+      url: https://juejin.im/timeline/frontend
+      icon: https://zhengxin-pub.bj.bcebos.com/financepic/b2f06f9c723e48f30bc6587a48bf9467_fullsize.jpg
+    - name: SegmentFault
+      title: SegmentFault 思否是中国领先的新一代开发者社区和专业的技术媒体。
+      url: https://segmentfault.com/channel/frontend
+      icon: https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1584840008813&di=911f2bcfc0a59f5c82c2fdb47c92e5cf&imgtype=0&src=http%3A%2F%2Fimgcache.iyiou.com%2FCompany%2F2016-05-11%2Fcf-segmentfault.jpg
+video:
+  videos:
+    - name: bilibili
+      title: 哔哩哔哩 - 中国年轻世代高度聚集的文化社区和视频平台
+      url: https://search.bilibili.com/all?keyword=%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91&from_source=nav_search_new
+      icon: https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2307900745,994930526&fm=26&gp=0.jpg
+    - name: bilibili2
+      title: 哔哩哔哩 - 中国年轻世代高度聚集的文化社区和视频平台
+      url: https://search.bilibili.com/all?keyword=%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91&from_source=nav_search_new
+      icon: https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2307900745,994930526&fm=26&gp=0.jpg
+#    context-path:
+
